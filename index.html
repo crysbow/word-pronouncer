@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Type any word and hear it spoken aloud.">
   <meta name="keywords" content="pronounce, speech, word, online tool">
-  <meta name="author" content="Sumit">
+  <meta name="author" content="Jagadesh">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -34,7 +33,6 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      animation: fadeIn 1s ease-in;
     }
     input {
       padding: 12px 20px;
@@ -46,6 +44,11 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
     button {
       padding: 12px 25px;
       font-size: 1rem;
@@ -56,41 +59,36 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
     }
     button:hover { background-color: #ff3b2e; }
-    #speakerIcon {
-      font-size: 1.5rem;
-      position: relative;
-    }
-    .wave {
-      position: absolute;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      opacity: 0;
-      animation: waveAnim 1.5s infinite;
-    }
-    .wave1 { width: 25px; height: 25px; left: -5px; top: -5px; }
-    .wave2 { width: 40px; height: 40px; left: -12px; top: -12px; animation-delay: 0.3s; }
-    .wave3 { width: 55px; height: 55px; left: -20px; top: -20px; animation-delay: 0.6s; }
-    .speaking .wave { opacity: 1; }
-    @keyframes waveAnim {
-      0% { transform: scale(0.8); opacity: 0.7; }
-      50% { transform: scale(1.2); opacity: 0.4; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
     footer {
       text-align: center;
       padding: 15px;
       font-size: 0.9rem;
       background-color: rgba(0, 0, 0, 0.2);
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    #history {
+      margin-top: 20px;
+      width: 80%;
+      max-width: 400px;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    #history h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    #history ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #history li {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
   </style>
 </head>
@@ -98,29 +96,36 @@
   <header>🔊 Word Pronouncer</header>
   <main>
     <input type="text" id="wordInput" placeholder="Enter a word to pronounce">
-    <button onclick="pronounceWord()">
-      <span id="speakerIcon">🔊</span>
-      <span class="wave wave1"></span>
-      <span class="wave wave2"></span>
-      <span class="wave wave3"></span>
-      Pronounce
-    </button>
+    <div class="buttons">
+      <button onclick="pronounceWord()">Pronounce</button>
+      <button onclick="stopPronounce()">Stop</button>
+    </div>
+
+    <div id="history">
+      <h2>History</h2>
+      <ul id="historyList"></ul>
+    </div>
   </main>
   <footer>
-    Made by ❤️ Sumit · Powered by Web Speech API
+    Made by ❤️ Jagadesh · Powered by Web Speech API
   </footer>
   <script>
     function pronounceWord() {
       const word = document.getElementById('wordInput').value.trim();
-      const button = document.querySelector("button");
       if (word) {
         const utterance = new SpeechSynthesisUtterance(word);
-        button.classList.add('speaking');
-        utterance.onend = () => {
-          button.classList.remove('speaking');
-        };
         speechSynthesis.speak(utterance);
+
+        // Add to history
+        const historyList = document.getElementById('historyList');
+        const li = document.createElement('li');
+        li.textContent = word;
+        historyList.appendChild(li);
       }
+    }
+
+    function stopPronounce() {
+      speechSynthesis.cancel();
     }
   </script>
 </body>
