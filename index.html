@@ -2,15 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First Website</title>
+  <title>Word Pronouncer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+      font-size: 24px;
+    }
+    main {
+      margin-top: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    footer {
+      margin-top: 50px;
+      padding: 10px;
+      font-size: 14px;
+      color: #fff;
+      background: #222;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is my first basic HTML page.</p>
-  <h1>Word Pronouncer</h1>
-  <input type="text" id="wordInput" placeholder="Enter a word">
-  <button onclick="pronounceWord()">Pronounce</button>
-<script src="script.js"></script>
+  <header>🔊 Word Pronouncer</header>
+  <main>
+    <p>Type any word and hear it spoken aloud.</p>
+    <input type="text" id="wordInput" placeholder="Enter a word">
+    <button onclick="pronounceWord()">Pronounce</button>
+  </main>
+  <footer>
+    Made with ❤️ by Crysbow
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
-
